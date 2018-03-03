@@ -4,6 +4,7 @@ import rospy
 from geometry_msgs.msg import PoseStamped
 from styx_msgs.msg import Lane, Waypoint
 from tf.transformations import euler_from_quaternion
+from std_msgs.msg import Int32
 
 import math
 
@@ -22,7 +23,7 @@ as well as to verify your TL classifier.
 TODO (for Yousuf and Aaron): Stopline location for each traffic light.
 '''
 
-LOOKAHEAD_WPS = 200 # Number of waypoints we will publish. You can change this number
+LOOKAHEAD_WPS = 100 # Number of waypoints we will publish. You can change this number
 
 
 class WaypointUpdater(object):
@@ -31,7 +32,7 @@ class WaypointUpdater(object):
         rospy.Subscriber('/current_pose', PoseStamped, self.pose_cb, queue_size=1)
         rospy.Subscriber('/base_waypoints', Lane, self.waypoints_cb, queue_size=1)
         # TODO: Add a subscriber for /traffic_waypoint and /obstacle_waypoint below
-        rospy.Subscriber('/traffic_waypoint', Lane, self.traffic_cb, queue_size=1)
+        rospy.Subscriber('/traffic_waypoint', Int32, self.traffic_cb, queue_size=1)
         rospy.Subscriber('/obstacle_waypoints', Lane, self.obstacle_cb, queue_size=1)
         self.final_waypoints_pub = rospy.Publisher('final_waypoints', Lane, queue_size=1)
 
@@ -42,6 +43,7 @@ class WaypointUpdater(object):
         self.nxtWayPoint = 0
         self.final_waypoints = Lane()
         self.ID = 0
+        self.traffic_light_waypoint = None
         rospy.spin()
 
     def pose_cb(self, msg):
@@ -72,7 +74,12 @@ class WaypointUpdater(object):
 
     def traffic_cb(self, msg):
         # TODO: Callback for /traffic_waypoint message. Implement
-        pass
+        self.traffic_light_waypoint = msg.data        
+        rospy.loginfo("Detected light: " + str(msg.data))
+        if self.traffic_light_waypoint > -1:
+            # detected light is RED
+            rospy.loginfo("RED traffic light detected")
+            # self.publish_final_wp()
 
     def obstacle_cb(self, msg):
         # TODO: Callback for /obstacle_waypoint message. We will implement it later
@@ -113,6 +120,7 @@ class WaypointUpdater(object):
                 ++closestWayPoint
             if(closestWayPoint == len(self.baseWayPoints.waypoints)):
                 closestWayPoint = 0
+   
         return closestWayPoint
             
     
