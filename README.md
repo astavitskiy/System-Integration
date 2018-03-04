@@ -4,7 +4,7 @@
 * Jeshwanth Challagundla - jeswanth111@gmail.com
 * Anton Stavitskiy       - anton.stavitskiy@gmail.com
 * Abhinav Rastogi        - ARastogi19@gmail.com
-* MOhammed Raju Hossain  - mrajuh@msn.com
+* Mohammed Raju Hossain  - mrajuh@msn.com
 * James Zuo              - pzuo2011@gmial.com
 
 In the current repo wayoint_updater.py, dbw_node.py and twist_controller.py are updated to make the host car drive along the base waypoints in the simulator. Inorder to test the repo please 'roslauch launch/styx.launch'
