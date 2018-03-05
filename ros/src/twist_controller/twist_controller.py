@@ -3,6 +3,7 @@
 from pid import PID
 from yaw_controller import YawController
 from lowpass import LowPassFilter
+import rospy
 
 GAS_DENSITY = 2.858
 ONE_MPH = 0.44704
@@ -46,5 +47,8 @@ class Controller(object):
             if linDecel < self.brake_deadband:
                 brake = 0.0
 
-        print(throttle, steer)
+        #print(throttle, steer)
+        rospy.loginfo("throttle: " + str(throttle))
+        rospy.loginfo("steer: " + str(steer))
+        rospy.loginfo("brake: " + str(brake))
         return throttle, brake, steer

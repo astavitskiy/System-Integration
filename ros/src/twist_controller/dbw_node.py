@@ -4,6 +4,7 @@ import rospy
 from std_msgs.msg import Bool
 from dbw_mkz_msgs.msg import ThrottleCmd, SteeringCmd, BrakeCmd, SteeringReport
 from geometry_msgs.msg import TwistStamped
+from styx_msgs.msg import Lane
 import math
 
 from twist_controller import Controller
@@ -84,7 +85,7 @@ class DBWNode(object):
         """
         Get predicted throttle, brake, and steering using `twist_controller`
         """
-        rate = rospy.Rate(10)  # was 50 [Hz]
+        rate = rospy.Rate(50)  # was 50 [Hz]
         while not rospy.is_shutdown():
             time_curr = rospy.get_time()
             delta_t = time_curr - self.time_prev

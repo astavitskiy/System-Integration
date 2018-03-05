@@ -24,7 +24,7 @@ TODO (for Yousuf and Aaron): Stopline location for each traffic light.
 '''
 
 LOOKAHEAD_WPS = 100 # Number of waypoints we will publish. You can change this number
-TARGET_SPEED = 10   # [MPH]
+TARGET_SPEED = 25   # [MPH]
 MAX_DECEL = 0.7
 STOP_DIST = 10.0
 
@@ -94,6 +94,7 @@ class WaypointUpdater(object):
 
     def decelerate(self, waypoints, redlight_index):
         # decelerate the vehicle
+        rospy.loginfo("Deceleration")
         if len(waypoints) < 1:
             return []
 
@@ -114,6 +115,7 @@ class WaypointUpdater(object):
                 if vel < 1.:
                     vel = 0.
             wp.twist.twist.linear.x = min(vel, wp.twist.twist.linear.x)
+            rospy.loginfo("wp.twist.twist.linear.x: " + str(wp.twist.twist.linear.x))
 
         return waypoints 
 
@@ -186,6 +188,8 @@ class WaypointUpdater(object):
 
     def set_waypoint_velocity(self, waypoints, waypoint, velocity):
         waypoints[waypoint].twist.twist.linear.x = velocity
+        #rospy.loginfo("velocity: " + str(velocity))
+        #rospy.loginfo("waypoints[waypoint].twist.twist.linear.x: " + str(waypoints[waypoint].twist.twist.linear.x))
 
     # def distance(self, waypoints, wp1, wp2):
     #     dist = 0
