@@ -6,7 +6,7 @@
 | Anton Stavitskiy       	| anton.stavitskiy@gmail.com 	|
 | Jeshwanth Challagundla 	| jeswanth111@gmail.com      	|
 | Mohammed Raju Hossain  	| mrajuh@msn.com             	|
-| James Zuo              	| pzuo2011@gmial.com         	|
+| James Zuo              	| pzuo2011@gmail.com         	|
 | Abhinav Rastogi        	| ARastogi19@gmail.com       	|
 
 ---
